@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 #include"Grid.h"
 #include"Node.h"
 #include"json.hpp"
@@ -8,26 +9,37 @@
 
 using namespace std;
 
-Grid* generateGrid(double, double, double, double, double, double);
+Grid* generateGrid(double, double, double, double, double, double, double, double, double, double, double, double);
+void readFromTxt(double*, double*, double*, double*, double*, double*, double*, double*, double*, double*, double*, double*);
 
 int main(){
 
-	double H = 0.1;
-	double L = 0.1;
-	double nH = 4.0;
-	double nL = 4.0;
-	double K = 25.0;
-	double t = 100.0;
+	double H, L, nH, nL, K, t, c, tot, alfa, ro, time, step;
 
+	readFromTxt(&H, &L, &nH, &nL, &K, &t, &c, &tot, &alfa, &ro, &time, &step);
+
+	cout << H << endl;
+	cout << L << endl;
+	cout << nH << endl;
+	cout << nL << endl;
+	cout << K << endl;
+	cout << t << endl;
+	cout << c << endl;
+	cout << tot << endl;
+	cout << alfa << endl;
+	cout << ro << endl;
+	cout << time << endl;
+	cout << step << endl;
 	
-	Grid *myGrid = generateGrid(H,L,nH,nL,t,K);
+	Grid *myGrid = generateGrid(H,L,nH,nL,t,K,c,tot,alfa,ro,time,step);
 	myGrid->solve();
 	
 
 	system("pause");
 	return 0;
 }
-Grid* generateGrid(double H, double L, double nH, double nL, double t, double K){
+
+Grid* generateGrid(double H, double L, double nH, double nL, double t, double K, double c, double tot, double alfa, double ro, double time, double step){
 
 	vector <Node*> myNodes;
 	double dH = H / (nH - 1);
@@ -56,5 +68,50 @@ Grid* generateGrid(double H, double L, double nH, double nL, double t, double K)
 			myElements.push_back(tmpE);
 		}
 	}
-	return (new Grid(myNodes, myElements, K));
+	return (new Grid(myNodes, myElements, K, c, t, tot, alfa, ro, time, step));
+}
+
+void readFromTxt(double* H, double* L, double* nH, double* nL, double* K, double* t, double* c, double* tot, double* alfa, double* ro, double* time, double* step) {
+	ifstream inFile("Data.txt");
+	string strOneLine;
+
+	while (inFile)
+	{
+		getline(inFile, strOneLine);
+		vector<string> list;
+		size_t pos = 0;
+		string token;
+		while ((pos = strOneLine.find("=")) != string::npos) {
+			token = strOneLine.substr(0, pos);
+			list.push_back(token);
+			strOneLine.erase(0, pos + 1);
+		}
+		list.push_back(strOneLine);
+		
+		if (list[0] == "H")
+			*H = stod(list[1]);
+		if (list[0] == "L")
+			*L = stod(list[1]);
+		if (list[0] == "nH")
+			*nH = stod(list[1]);
+		if (list[0] == "nL")
+			*nL = stod(list[1]);
+		if (list[0] == "K")
+			*K = stod(list[1]);
+		if (list[0] == "t")
+			*t = stod(list[1]);
+		if (list[0] == "c")
+			*c = stod(list[1]);
+		if (list[0] == "tot")
+			*tot = stod(list[1]);
+		if (list[0] == "alfa")
+			*alfa = stod(list[1]);
+		if (list[0] == "ro")
+			*ro = stod(list[1]);
+		if (list[0] == "time")
+			*time = stod(list[1]);
+		if (list[0] == "step")
+			*step = stod(list[1]);
+	}
+	inFile.close();
 }

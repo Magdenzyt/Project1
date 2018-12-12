@@ -13,7 +13,6 @@ public:
 	double ro;
 	double alfa;
 	double tot;
-
 	double ksi[4];
 	double eta[4];	
 	

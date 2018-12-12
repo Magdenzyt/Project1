@@ -28,7 +28,7 @@ public:
 	vector<double> t1;
 
 	Grid();
-	Grid(vector<Node*>, vector<Element*>, double);
+	Grid(vector<Node*>, vector<Element*>, double, double, double, double, double, double, double, double);
 	~Grid();
 
 	void generateUniversalElements();

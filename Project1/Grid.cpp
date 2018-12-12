@@ -118,18 +118,18 @@ vector<double> vectorPlusVector(vector<double> v1, vector<double> v2) {
 
 Grid::Grid() {}
 
-Grid::Grid(vector<Node*> tabNodes, vector<Element*> tabElements, double K) {
+Grid::Grid(vector<Node*> tabNodes, vector<Element*> tabElements, double K, double c, double t, double tot, double alfa, double ro, double time, double step) {
 	
 	this->tabNodes = tabNodes;
 	this->tabElements = tabElements;
 	this->K = K;
-	this->c = 700.0;
-	this->t = 100.0;
-	this->tot = 1200.0;
-	this->alfa = 300.0;
-	this->ro = 7800.0;
-	this->time = 500.0;
-	this->step = 50.0;
+	this->c = c;
+	this->t = t;
+	this->tot = tot;
+	this->alfa = alfa;
+	this->ro = ro;
+	this->time = time;
+	this->step = step;
 
 	for (int i = 0; i < tabNodes.size(); i++) {
 
